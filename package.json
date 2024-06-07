@@ -7,7 +7,16 @@
     "prisma",
     "grammar"
   ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
   "main": "bindings/node",
+  "types": "bindings/node",
   "homepage": "https://github.com/victorhqc/tree-sitter-prisma#readme",
   "repository": {
     "type": "git",
@@ -17,7 +26,9 @@
     "build": "tree-sitter generate && node-gyp build",
     "generate": "tree-sitter generate",
     "test": "npm run generate && tree-sitter test",
-    "tree-sitter": "tree-sitter"
+    "tree-sitter": "tree-sitter",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
@@ -26,9 +37,25 @@
   "author": "Victor Quiroz Castro <victorhqc@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.15.0"
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.6"
-  }
+    "tree-sitter-cli": "^0.20.6",
+    "prebuildify": "^6.0.0"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.prisma",
+      "injection-regex": "^prisma$"
+    }
+  ]
 }
